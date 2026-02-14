@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>public class Us { love(); } — Valentine's Day 2026</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-dark: #0d1117;
+      --bg-card: #161b22;
+      --border: #30363d;
+      --text: #e6edf3;
+      --text-muted: #8b949e;
+      --accent: #ff6b9d;
+      --accent-soft: #ff9ebb;
+      --accent-glow: rgba(255, 107, 157, 0.3);
+      --green: #3fb950;
+      --purple: #a371f7;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'JetBrains Mono', monospace;
+      background: var(--bg-dark);
+      color: var(--text);
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* Subtle grid background */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(255,107,157,0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,107,157,0.03) 1px, transparent 1px);
+      background-size: 24px 24px;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .container {
+      position: relative;
+      z-index: 1;
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 2rem 1.5rem;
+    }
+
+    /* Hero */
+    header {
+      text-align: center;
+      padding: 4rem 0 3rem;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .hero-badge {
+      display: inline-block;
+      font-size: 0.75rem;
+      color: var(--accent);
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      padding: 0.35rem 0.75rem;
+      border-radius: 6px;
+      margin-bottom: 1.5rem;
+      letter-spacing: 0.05em;
+    }
+
+    h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.75rem, 5vw, 2.5rem);
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 0.5rem;
+      line-height: 1.3;
+    }
+
+    .hero-code {
+      font-size: clamp(0.85rem, 2.5vw, 1rem);
+      color: var(--text-muted);
+      margin-top: 1rem;
+    }
+
+    .hero-code .keyword { color: var(--purple); }
+    .hero-code .paren { color: var(--text-muted); }
+    .hero-code .fn { color: var(--green); }
+    .hero-code .comment { color: var(--text-muted); opacity: 0.8; }
+    .hero-emoji { color: var(--accent); font-family: inherit; }
+
+    /* Puns section */
+    .puns {
+      display: grid;
+      gap: 1rem;
+      padding: 3rem 0;
+    }
+
+    .pun-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 1.25rem 1.5rem;
+      font-size: 0.9rem;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+
+    .pun-card:hover {
+      border-color: var(--accent);
+      box-shadow: 0 0 20px var(--accent-glow);
+    }
+
+    .pun-card code {
+      color: var(--accent-soft);
+      font-size: 0.85em;
+    }
+
+    .pun-card .emoji {
+      color: var(--accent);
+      font-size: 1em;
+      margin-left: 0.15em;
+    }
+
+    /* Memory scroll — full width, break out of container */
+    .memory-intro {
+      padding: 2rem 0 3rem;
+      text-align: center;
+    }
+
+    .memory-intro .section-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.5rem;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+      color: var(--text);
+    }
+
+    .memory-intro .section-subtitle {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+    }
+
+    .memory-lane {
+      padding: 0 0 2rem;
+    }
+
+    .memory-frame {
+      min-height: 85vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 3rem 1.5rem;
+      margin-bottom: 2rem;
+      scroll-margin-top: 2rem;
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity 0.8s ease-out, transform 0.6s ease-out;
+    }
+
+    .memory-frame.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .memory-frame .frame-inner {
+      width: 100%;
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+
+    /* Varied layouts per frame */
+    .memory-frame.layout-center .frame-inner {
+      text-align: center;
+    }
+
+    .memory-frame.layout-center img {
+      max-height: 70vh;
+      width: auto;
+      max-width: 100%;
+      object-fit: contain;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+    }
+
+    .memory-frame.layout-left .frame-inner {
+      display: grid;
+      grid-template-columns: 1.2fr 1fr;
+      gap: 2.5rem;
+      align-items: center;
+    }
+
+    .memory-frame.layout-right .frame-inner {
+      display: grid;
+      grid-template-columns: 1fr 1.2fr;
+      gap: 2.5rem;
+      align-items: center;
+    }
+
+    .memory-frame.layout-right .frame-inner .memory-photo { order: 2; }
+    .memory-frame.layout-right .frame-inner .memory-copy { order: 1; }
+
+    .memory-photo {
+      position: relative;
+      border-radius: 12px;
+      overflow: hidden;
+      border: 1px solid var(--border);
+      box-shadow: 0 16px 48px rgba(0,0,0,0.35);
+    }
+
+    .memory-photo img {
+      width: 100%;
+      height: 100%;
+      display: block;
+      object-fit: cover;
+      vertical-align: middle;
+    }
+
+    .memory-frame.layout-left .memory-photo { aspect-ratio: 4/5; }
+    .memory-frame.layout-right .memory-photo { aspect-ratio: 4/5; }
+
+    .memory-frame.layout-full .frame-inner {
+      max-width: 100%;
+    }
+
+    .memory-frame.layout-full .memory-photo {
+      aspect-ratio: 16/10;
+      max-height: 75vh;
+    }
+
+    .memory-frame.layout-full .memory-photo img {
+      object-fit: cover;
+      width: 100%;
+      height: 100%;
+    }
+
+    .memory-copy {
+      font-size: 0.95rem;
+      color: var(--text-muted);
+      line-height: 1.6;
+    }
+
+    .memory-copy .label {
+      font-size: 0.75rem;
+      color: var(--accent);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-bottom: 0.5rem;
+    }
+
+    .memory-copy .line {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.25rem;
+      color: var(--text);
+      font-style: italic;
+      margin-top: 0.75rem;
+    }
+
+    .memory-copy code {
+      color: var(--accent-soft);
+      font-size: 0.85em;
+    }
+
+    .memory-frame.layout-center .memory-label {
+      margin-top: 1.25rem;
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+
+    .memory-frame.layout-center .memory-label code { color: var(--accent); }
+
+    @media (max-width: 700px) {
+      .memory-frame.layout-left .frame-inner,
+      .memory-frame.layout-right .frame-inner {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+      }
+      .memory-frame.layout-right .frame-inner .memory-photo { order: 1; }
+      .memory-frame.layout-right .frame-inner .memory-copy { order: 2; }
+      .memory-frame { min-height: auto; padding: 2rem 1rem; }
+    }
+
+    /* Footer */
+    footer {
+      text-align: center;
+      padding: 3rem 0;
+      border-top: 1px solid var(--border);
+    }
+
+    .footer-code {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      margin-bottom: 1rem;
+    }
+
+    .footer-code .heart { color: var(--accent); }
+
+    .sign-off {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.1rem;
+      color: var(--accent-soft);
+      font-style: italic;
+    }
+
+    .memory-intro .emoji { color: var(--accent); }
+    footer .emoji { color: var(--accent); }
+
+    /* Music control */
+    .music-ctrl {
+      position: fixed;
+      bottom: 1.5rem;
+      right: 1.5rem;
+      z-index: 10;
+    }
+    .music-btn {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.8rem;
+      color: var(--text);
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 0.5rem 0.85rem;
+      cursor: pointer;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+    .music-btn:hover {
+      border-color: var(--accent);
+      box-shadow: 0 0 16px var(--accent-glow);
+    }
+    .music-icon { color: var(--accent); }
+    .music-btn .music-icon-pause { display: none; color: var(--accent); }
+    .music-btn.playing .music-icon { display: none; }
+    .music-btn.playing .music-icon-pause { display: inline; }
+
+    /* Responsive */
+    @media (max-width: 600px) {
+      .container { padding: 1rem; }
+      header { padding: 2.5rem 0 2rem; }
+      .gallery { grid-template-columns: 1fr; }
+      .music-ctrl { bottom: 1rem; right: 1rem; }
+      .music-label { display: none; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <div class="hero-badge">// VALENTINE'S DAY 2026</div>
+      <h1>You're the only exception I'd catch. <span class="hero-emoji">&lt;3</span></h1>
+      <p class="hero-code">
+        <span class="keyword">public class</span> Us <span class="paren">{</span><br>
+        &nbsp;&nbsp;<span class="keyword">public static void</span> <span class="fn">main</span><span class="paren">(</span>String[] args<span class="paren">)</span> <span class="paren">{</span><br>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="fn">love</span><span class="paren">();</span> <span class="comment">// no breakpoint here</span><br>
+        &nbsp;&nbsp;<span class="paren">}</span><br>
+        <span class="paren">}</span>
+      </p>
+    </header>
+
+    <section class="puns">
+      <div class="pun-card">We're like two <code>agents</code> on the same MCP — same context, same tools, zero latency. <span class="emoji">{:}</span></div>
+      <div class="pun-card">Our love runs on <code>Kubernetes</code> — two replicas, one StatefulSet, no pod left behind. <span class="emoji">&lt;/&gt;</span></div>
+      <div class="pun-card">You're my favorite <code>dependency</code>. Even the best AI can't <code>generate</code> a you. <span class="emoji">(^^)</span></div>
+      <div class="pun-card">We're a perfect <code>pair</code> — like <code>0</code> and <code>1</code>, we just make sense together. <span class="emoji">;)</span></div>
+      <div class="pun-card">In Java terms: you're my <code>finally</code> block — I always run to you. <span class="emoji">&lt;3</span></div>
+    </section>
+
+    <section class="memory-intro">
+      <h2 class="section-title">Scroll down the memory lane <span class="emoji">(^^)</span></h2>
+      <p class="section-subtitle">// One frame at a time. Our heap, our story. &lt;/&gt;</p>
+    </section>
+
+    <div class="memory-lane">
+      <div class="memory-frame layout-center visible" data-memory="1">
+        <div class="frame-inner">
+          <div class="memory-photo">
+            <img src="images/IMG_1625.jpeg" alt="Memory">
+          </div>
+          <p class="memory-label"><code>// frame 001 — first commit</code></p>
+        </div>
+      </div>
+
+      <div class="memory-frame layout-left" data-memory="2">
+        <div class="frame-inner">
+          <div class="memory-photo">
+            <img src="images/IMG_3255.jpeg" alt="Memory">
+          </div>
+          <div class="memory-copy">
+            <div class="label">memory[1]</div>
+            <p>Every great project starts with a single <code>git init</code>. Ours was you.</p>
+            <p class="line">— still building.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="memory-frame layout-full" data-memory="3">
+        <div class="frame-inner">
+          <div class="memory-photo">
+            <img src="images/IMG_2478.jpeg" alt="Memory">
+          </div>
+          <p class="memory-label" style="margin-top:1rem;text-align:center;font-size:0.8rem;color:var(--text-muted);"><code>// frame 002 — no rollback</code></p>
+        </div>
+      </div>
+
+      <div class="memory-frame layout-right" data-memory="4">
+        <div class="frame-inner">
+          <div class="memory-photo">
+            <img src="images/IMG_2599.jpeg" alt="Memory">
+          </div>
+          <div class="memory-copy">
+            <div class="label">memory[2]</div>
+            <p>Some snapshots you never <code>git revert</code>. This is one of them.</p>
+            <p class="line">— cached forever.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="memory-frame layout-center" data-memory="5">
+        <div class="frame-inner">
+          <div class="memory-photo">
+            <img src="images/IMG_2721.JPG" alt="Memory">
+          </div>
+          <p class="memory-label"><code>// frame 003 — stack overflow (of love)</code></p>
+        </div>
+      </div>
+
+      <div class="memory-frame layout-left" data-memory="6">
+        <div class="frame-inner">
+          <div class="memory-photo">
+            <img src="images/IMG_3065.jpeg" alt="Memory">
+          </div>
+          <div class="memory-copy">
+            <div class="label">memory[3]</div>
+            <p>We don't <code>grep</code> for happiness — we're already in the same repo.</p>
+            <p class="line">— same branch, same life.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="memory-frame layout-full" data-memory="7">
+        <div class="frame-inner">
+          <div class="memory-photo">
+            <img src="images/IMG_3597.jpeg" alt="Memory">
+          </div>
+          <p class="memory-label" style="margin-top:1rem;text-align:center;font-size:0.8rem;color:var(--text-muted);"><code>// frame 004 — persistent storage</code></p>
+        </div>
+      </div>
+
+      <div class="memory-frame layout-right" data-memory="8">
+        <div class="frame-inner">
+          <div class="memory-photo">
+            <img src="images/IMG_6004.jpeg" alt="Memory">
+          </div>
+          <div class="memory-copy">
+            <div class="label">memory[4]</div>
+            <p>Last frame in this build — but the loop never ends. <code>kubectl get pods -l us=forever</code></p>
+            <p class="line">— to be continued.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <footer>
+      <p class="footer-code"><span class="heart">return</span> &lt;3 <span class="heart">forever</span>; <span class="emoji">;)</span></p>
+      <p class="sign-off">Happy Valentine's Day — from one dev to another.</p>
+    </footer>
+  </div>
+
+  <div class="music-ctrl" title="Play / Pause music">
+    <button id="musicBtn" class="music-btn" aria-label="Play background music">
+      <span class="music-icon">▶</span>
+      <span class="music-icon-pause">⏸</span>
+      <span class="music-label">Play</span>
+    </button>
+    <audio id="bgMusic" loop preload="auto">
+      <source src="audio/Talor_Swift_-_Today_Was_a_Fairytale_(mp3.pm).mp3" type="audio/mpeg">
+    </audio>
+  </div>
+
+  <script>
+    (function() {
+      var frames = document.querySelectorAll('.memory-frame');
+      if (frames.length) {
+        var observer = new IntersectionObserver(function(entries) {
+          entries.forEach(function(entry) {
+            if (entry.isIntersecting) entry.target.classList.add('visible');
+          });
+        }, { rootMargin: '0px 0px -15% 0px', threshold: 0.1 });
+        frames.forEach(function(f) { observer.observe(f); });
+      }
+
+      var btn = document.getElementById('musicBtn');
+      var audio = document.getElementById('bgMusic');
+      var label = btn && btn.querySelector('.music-label');
+      if (btn && audio) {
+        btn.addEventListener('click', function() {
+          if (audio.paused) {
+            audio.play().then(function() {
+              btn.classList.add('playing');
+              if (label) label.textContent = 'Pause';
+            }).catch(function() {});
+          } else {
+            audio.pause();
+            btn.classList.remove('playing');
+            if (label) label.textContent = 'Play';
+          }
+        });
+        audio.addEventListener('ended', function() { btn.classList.remove('playing'); if (label) label.textContent = 'Play'; });
+        // Auto-play when the website starts
+        audio.play().then(function() {
+          btn.classList.add('playing');
+          if (label) label.textContent = 'Pause';
+        }).catch(function() {});
+      }
+    })();
+  </script>
+</body>
+</html>
